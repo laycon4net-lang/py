@@ -20,4 +20,20 @@ class Button:
     def draw(self, screen):
          pygame.draw.rect(screen. GRAY. self.rect)
          label = font.render(self.text, True, BLACK)
-         
+         screen.blit(label, (self.rect.x = 10, self.rect.y = 10))
+    def isclicked(self, pos):
+        return self.rect.collidepoint(pos)
+buttons = [
+     Button(50, 300, 150, 50, "rocks")
+     Button(225, 300, 150, 50, "paper")
+     Button(400, 300, 150, 50, "scissors")
+     
+ ]    
+user_choice = None
+computer_choice = None
+results = ""
+def check_winner(user, comp):
+     if( user == comp:)
+          return "It's a Tie!"
+          
+          
