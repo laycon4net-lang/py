@@ -14,6 +14,21 @@ def generate_response(prompt):
         return res.text.strip()
     except Exception as e:
         return f"Error: {e}"
+CSS = """
+<style>
+.history-wrap {max-height: 420px; overflow-y: auto; padding-right: 6px;}
+.qa-card{
+    border: 1px solid #e6e6e6;
+    background: #ffffff;
+    border-radius: 10px 0;
+    padding: 14px 16px;
+    margin: 10px 0;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+}
+.q{font-weight: 700; color: #0a6ebd; margin-bottom: 8px;}
+.a{white-space: pre-wrap; color: #333; line-height: 1.5;}
+</style>
+"""
 def export_bytes(history):
     text = "\n\n".join(
         [f"Q{1}: {h['question']}\nA{i}: {h['answer']}" for i, h in enumerate(history, 1)]
@@ -48,4 +63,5 @@ def main():
 if __name__ == "__main__":
 
    main()
+   
     
