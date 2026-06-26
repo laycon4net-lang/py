@@ -1,0 +1,23 @@
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+sns.set(style="ticks")
+weather = pd.read_csv("Test.csv")
+print(weather.head())
+print(weather.info())
+sns.barplot(x=weather['humidity'], y=weather["temperature"])
+sns.distplot(weather['humidity'])
+plt.show()
+sns.distplot(weather['humidity'], kde=False, rug=True)
+sns.jointplot(x=weather['humidity'], y=weather['temperature'])
+plt.show()
+sns.jointplot(x=weather['humidity'], y=weather['temperature'], kind="hex")
+plt.show()
+sns.jointplot(x=weather['humidity'], y=weather['temperature'], kind="kde")
+plt.show()
+sns.pairplot(x=weather['weather_type'], y=weather['temperature'])
+plt.show()
+sns.stripplot(x=weather['weather_type'], y=weather['temperature'])
+plt.show()
+sns.swarmplot(x=weather['humidity'], y=weather['temperature'])
+plt.show()
