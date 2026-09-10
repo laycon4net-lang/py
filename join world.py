@@ -2,6 +2,8 @@ import sqlite3
 import pandas as pd
 conn = sqlite3.connect(':memory:')
 conn.execute("""CREATE TABLE author (
+    author_id   INTEGER PRIMARY KEY,
+    author_name TEXT NOT NULL UNIQUE
 )""")
 conn.execute("""CREATE TABLE book (
     book_id    INTEGER PRIMARY KEY,
@@ -23,7 +25,7 @@ conn.executemany("INSERT INTO book VALUES (?, ?, ?)",[
     (4, 'Harry potter and the Chamber of Secrets',  4),
     (5, 'The Lightning Theif',                      5),
     (6, 'The Sea of Monsters',                      6),
-    (7, 'Diary of a wimpy kid',)
+    (7, 'Diary of a wimpy kid',                     4),
 ])
 conn.commit()
 authors = pd.read_sql("SELECT * FROM author", conn)
@@ -34,3 +36,23 @@ print()
 print("Book table:")
 print(books)
 print()
+print("INNER JOIN - authors matched with their books:")
+print(inner)
+print()
+left = pd.read_sql(
+    "SELECT author.author_name, book.book_title"
+    "FROM author LEFT JOIN book ON author.author_Id - book.author_Id",
+    conn
+)
+print("LEFT JOIN - all authors, NULL where no book found:")
+print(left)
+print()
+union = pd.read_sql(
+    "SELECT author_name AS name, 'Author' AS type FROM author"
+    "UNION"
+    "SELECT author_name AS name, 'Brook' AS type FROM book",
+
+)
+print("UNION - all author names and book titles Combined:")
+print(union)
+conn.close()
